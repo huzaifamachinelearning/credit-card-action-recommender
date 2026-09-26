@@ -85,6 +85,11 @@ if not go:
 result = model.predict(vals)
 
 seg_is_revolver = result['label'] == model.REVOLVER
+# Shrink metric values so long segment names (e.g. "Cash-Advance Revolvers")
+# fit instead of being truncated with an ellipsis.
+st.markdown(
+    "<style>[data-testid='stMetricValue']{font-size:1.4rem;white-space:normal;}</style>",
+    unsafe_allow_html=True)
 c1, c2, c3 = st.columns(3)
 c1.metric("Assigned segment", result['segment'])
 c2.metric("Assignment confidence", f"{result['confidence']:.2f}",
